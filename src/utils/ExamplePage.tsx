@@ -1,15 +1,16 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { HomeIcon, ClipboardCopyIcon, CheckIcon } from '@heroicons/react/solid';
+import { EyeIcon } from '@heroicons/react/outline';
+import { CodeIcon } from '@heroicons/react/outline';
+import { CheckIcon, ClipboardCopyIcon, HomeIcon } from '@heroicons/react/solid';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Highlight, { defaultProps } from 'prism-react-renderer';
 import theme from 'prism-react-renderer/themes/vsDark';
 import { Fragment, ReactNode, useEffect } from 'react';
+
 import { ClientSuspense, ErrorBoundary } from './ClientSuspense';
 import { trpc } from './trpc';
-import { EyeIcon } from '@heroicons/react/outline';
-import { CodeIcon } from '@heroicons/react/outline';
 import { useClipboard } from './useClipboard';
 
 interface SourceFile {

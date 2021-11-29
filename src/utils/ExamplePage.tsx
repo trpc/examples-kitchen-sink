@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { HomeIcon } from '@heroicons/react/solid';
+import { HomeIcon, ClipboardCopyIcon, CheckIcon } from '@heroicons/react/solid';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -10,6 +10,7 @@ import { ClientSuspense, ErrorBoundary } from './ClientSuspense';
 import { trpc } from './trpc';
 import { EyeIcon } from '@heroicons/react/outline';
 import { CodeIcon } from '@heroicons/react/outline';
+import { useClipboard } from './useClipboard';
 
 interface SourceFile {
   title: string;
@@ -135,10 +136,34 @@ function ViewSource(props: SourceFile) {
   const filename = basename(props.path);
   const language = filename.split('.').pop()!;
 
+  const [hasCopied, copy] = useClipboard(query.data?.contents || '');
+
   if (!query.data) {
     return <Spinner />;
   }
-  return <Code contents={query.data.contents} language={language} />;
+
+  return (
+    <div className="relative">
+      <button
+        onClick={copy}
+        type="button"
+        className="absolute right-4 top-4 inline-flex items-center p-1.5 border border-transparent rounded-lg shadow-sm text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+      >
+        {hasCopied ? (
+          <>
+            <span className="sr-only">Copied</span>
+            <CheckIcon className="h-5 w-5" aria-hidden />
+          </>
+        ) : (
+          <>
+            <span className="sr-only">Copy</span>
+            <ClipboardCopyIcon className="h-5 w-5" aria-hidden />
+          </>
+        )}
+      </button>
+      <Code contents={query.data.contents} language={language} />
+    </div>
+  );
 }
 
 function Spinner() {

@@ -43,6 +43,7 @@
     "@trpc/server": "^9.14.0",
     "autoprefixer": "^10.4.0",
     "clsx": "^1.1.1",
+    "copy-to-clipboard": "^3.3.1",
     "next": "^12.0.1",
     "postcss": "^8.3.11",
     "prism-react-renderer": "^1.2.1",

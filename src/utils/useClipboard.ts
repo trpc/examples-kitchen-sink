@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import copy from 'copy-to-clipboard';
 
 export const useClipboard = (text: string): [boolean, () => void] => {
   const [hasCopied, setHasCopied] = useState(false);
@@ -19,7 +18,7 @@ export const useClipboard = (text: string): [boolean, () => void] => {
   return [
     hasCopied,
     () => {
-      setHasCopied(copy(text));
+      navigator.clipboard.writeText(text).then(() => setHasCopied(true));
     },
   ];
 };

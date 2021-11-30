@@ -1,6 +1,5 @@
 import { PrismaClient } from '@prisma/client';
 import * as trpc from '@trpc/server';
-import * as trpcNext from '@trpc/server/adapters/next';
 
 const prisma = new PrismaClient({
   log:
@@ -8,13 +7,12 @@ const prisma = new PrismaClient({
       ? ['query', 'error', 'warn']
       : ['error'],
 });
+
 /**
  * Creates context for an incoming request
  * @link https://trpc.io/docs/context
  */
-export const createContext = async (
-  opts?: trpcNext.CreateNextContextOptions,
-) => {
+export const createContext = async () => {
   // for API-response caching see https://trpc.io/docs/caching
   return {
     prisma,

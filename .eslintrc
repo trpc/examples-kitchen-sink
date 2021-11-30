@@ -10,7 +10,14 @@
     "ecmaVersion": 2018, // Allows for the parsing of modern ECMAScript features
     "sourceType": "module" // Allows for the use of imports
   },
+  "plugins": ["simple-import-sort"],
   "rules": {
+    // Auto-sort imports and exports
+    "simple-import-sort/imports": "error",
+		"simple-import-sort/exports": "error",
+		"sort-imports": "off",
+		"import/order": "off",
+
     // Place to specify ESLint rules. Can be used to overwrite rules specified from the extended configs
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",

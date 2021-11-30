@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export const useClipboard = (text: string): [boolean, () => void] => {
   const [hasCopied, setHasCopied] = useState(false);

@@ -1,11 +1,11 @@
 import { createSSGHelpers } from '@trpc/react/ssg';
-import { GetStaticPropsContext, InferGetStaticPropsType } from 'next';
+import { meta } from 'feature/ssg/meta';
+import { InferGetStaticPropsType } from 'next';
 import { createContext } from 'server/context';
 import { appRouter } from 'server/routers/_app';
 import superjson from 'superjson';
 import { ExamplePage } from 'utils/ExamplePage';
 import { trpc } from 'utils/trpc';
-import { meta } from 'feature/ssg/meta';
 
 export default function Page(
   props: InferGetStaticPropsType<typeof getStaticProps>,
@@ -26,7 +26,7 @@ export default function Page(
   );
 }
 
-export async function getStaticProps(context: GetStaticPropsContext) {
+export async function getStaticProps() {
   const ssg = createSSGHelpers({
     router: appRouter,
     ctx: await createContext(),

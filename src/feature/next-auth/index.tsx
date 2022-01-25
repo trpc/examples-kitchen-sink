@@ -72,7 +72,7 @@ function MiddlewareQuery() {
         </>
       ) : (
         <>
-          Not signed in, no code from the server, a 404 response and an error is
+          Not signed in, no code from the server, a 401 response and an error is
           raised. <br />
         </>
       )}

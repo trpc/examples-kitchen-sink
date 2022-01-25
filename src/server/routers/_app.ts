@@ -1,6 +1,7 @@
 /**
  * This file contains the root router of your tRPC-backend
  */
+import { router as nextAuthRouter } from 'feature/next-auth/router';
 import { router as reactHookFormRouter } from 'feature/react-hook-form/router';
 import { router as ssgRouter } from 'feature/ssg/router';
 import superjson from 'superjson';
@@ -28,6 +29,7 @@ export const appRouter = createRouter()
 
   .merge('source.', sourceRouter)
   // features:
+  .merge(nextAuthRouter)
   .merge(ssgRouter)
   .merge(reactHookFormRouter);
 

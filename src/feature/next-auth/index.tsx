@@ -4,7 +4,7 @@ import { trpc } from 'utils/trpc';
 export default function NextAuth() {
   return (
     <>
-      <h2 className="text-3xl font-bold">Next Auth</h2>
+      <h2 className="text-3xl font-bold my-1">Next Auth Examples</h2>
       <ClientSideSessionCheck />
       <ServerSideSessionCheck />
       <MiddlewareQuery />
@@ -16,8 +16,8 @@ export default function NextAuth() {
 function ClientSideSessionCheck() {
   const { data: session } = useSession();
   return (
-    <>
-      <h3 className="text-xl font-bold">
+    <div className="my-1">
+      <h3 className="text-xl">
         Client side session check with NextAuth&apos;s useSession hook
       </h3>
       {session ? (
@@ -29,7 +29,7 @@ function ClientSideSessionCheck() {
           Not signed in <br />
         </>
       )}
-    </>
+    </div>
   );
 }
 
@@ -39,8 +39,8 @@ function ServerSideSessionCheck() {
   const session = query.data;
 
   return (
-    <>
-      <h3 className="text-xl font-bold">
+    <div className="my-1">
+      <h3 className="text-xl">
         Server side session check with tRPC&apos;s context
       </h3>
       {session ? (
@@ -52,18 +52,17 @@ function ServerSideSessionCheck() {
           Not signed in <br />
         </>
       )}
-    </>
+    </div>
   );
 }
 
 function MiddlewareQuery() {
-  //Middleware which ensured session exists to return data
-  const query = trpc.useQuery(['next-auth.middlewareForceLogIn']);
+  const query = trpc.useQuery(['next-auth.getSecretCode']);
 
   const secretCode = query.data;
   return (
-    <>
-      <h3 className="text-xl font-bold">
+    <div className="my-1">
+      <h3 className="text-xl">
         Server side middleware session check with tRPC&apos;s context
       </h3>
       {secretCode ? (
@@ -77,7 +76,7 @@ function MiddlewareQuery() {
           raised. <br />
         </>
       )}
-    </>
+    </div>
   );
 }
 
@@ -89,10 +88,10 @@ function SignInButton() {
       onClick={
         session
           ? () => {
-              signIn();
+              signOut();
             }
           : () => {
-              signOut();
+              signIn();
             }
       }
     >

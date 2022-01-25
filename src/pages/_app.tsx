@@ -4,6 +4,7 @@ import { httpBatchLink } from '@trpc/client/links/httpBatchLink';
 import { loggerLink } from '@trpc/client/links/loggerLink';
 import { withTRPC } from '@trpc/next';
 import { AppType } from 'next/dist/shared/lib/utils';
+import { SessionProvider } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import { AppRouter } from 'server/routers/_app';
 import superjson from 'superjson';
@@ -60,10 +61,10 @@ function ContributorsWantedBanner() {
 }
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
-    <>
+    <SessionProvider session={pageProps.session}>
       <Component {...pageProps} />
       <ContributorsWantedBanner />
-    </>
+    </SessionProvider>
   );
 };
 

@@ -98,9 +98,7 @@ function ThinkYourLoggedIn() {
 
 function LoggedInToView() {
   //Middleware which ensured session exists to return data
-  const query = trpc.useQuery(['next-auth.middlewareForceLogIn'], {
-    suspense: true,
-  });
+  const query = trpc.useQuery(['next-auth.middlewareForceLogIn']);
 
   const secretCode = query.data;
   return (

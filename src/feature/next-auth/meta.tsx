@@ -26,8 +26,8 @@ export const meta: ExampleProps = {
     </>
   ),
   files: [
-    { title: 'Router', path: 'feature/next-auth/router.tsx' },
     { title: 'Page', path: 'feature/next-auth/index.tsx' },
+    { title: 'Router', path: 'feature/next-auth/router.tsx' },
     { title: 'Context', path: 'server/context.ts' },
   ],
 };

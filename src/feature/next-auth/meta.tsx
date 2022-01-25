@@ -22,6 +22,7 @@ export const meta: ExampleProps = {
         >
           NextAuth
         </a>
+        .
       </p>
     </>
   ),

@@ -1,35 +1,14 @@
-import { signIn, signOut, useSession } from 'next-auth/react';
+import { signIn, signOut } from 'next-auth/react';
 import { trpc } from 'utils/trpc';
 
 export default function NextAuth() {
   return (
     <>
       <h2 className="text-3xl font-bold my-1">Next Auth Examples</h2>
-      <ClientSideSessionCheck />
       <ServerSideSessionCheck />
       <MiddlewareQuery />
       <SignInButton />
     </>
-  );
-}
-
-function ClientSideSessionCheck() {
-  const { data: session } = useSession();
-  return (
-    <div className="my-1">
-      <h3 className="text-xl">
-        Client side session check with NextAuth&apos;s useSession hook
-      </h3>
-      {session ? (
-        <>
-          Signed in as {session?.user?.email} <br />
-        </>
-      ) : (
-        <>
-          Not signed in <br />
-        </>
-      )}
-    </div>
   );
 }
 
@@ -81,21 +60,27 @@ function MiddlewareQuery() {
 }
 
 function SignInButton() {
-  const { data: session } = useSession();
+  const query = trpc.useQuery(['next-auth.getSession'], { suspense: true });
+
+  const session = query.data;
+
   return (
-    <button
-      className="btn"
-      onClick={
-        session
-          ? () => {
-              signOut();
-            }
-          : () => {
-              signIn();
-            }
-      }
-    >
-      {session ? 'Sign Out' : 'Sign In'}
-    </button>
+    <div className="flex items-center">
+      <button
+        className="btn"
+        onClick={
+          session
+            ? () => {
+                signOut();
+              }
+            : () => {
+                signIn();
+              }
+        }
+      >
+        {session ? 'Sign Out' : 'Sign In'}
+      </button>
+      <p className="ml-1">(Any credentials work)</p>
+    </div>
   );
 }

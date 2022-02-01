@@ -3,7 +3,7 @@ import * as trpc from '@trpc/server';
 import * as trpcNext from '@trpc/server/adapters/next';
 import { getServerSession } from 'next-auth';
 
-import { authOptions as next_auth_opts } from '../pages/api/auth/[...nextauth]';
+import { authOptions as nextAuthOptions } from '../pages/api/auth/[...nextauth]';
 
 const prisma = new PrismaClient({
   log:
@@ -17,10 +17,10 @@ const prisma = new PrismaClient({
  * @link https://trpc.io/docs/context
  */
 export const createContext = async (
-  context_opts?: trpcNext.CreateNextContextOptions,
+  opts: trpcNext.CreateNextContextOptions,
 ) => {
-  const req = context_opts?.req;
-  const res = context_opts?.res;
+  const req = opts?.req;
+  const res = opts?.res;
 
   /**
    * Uses faster "getServerSession" in next-auth v4 that avoids a fetch request to /api/auth.
@@ -28,8 +28,7 @@ export const createContext = async (
    * Note: If no req -> SSG is being used -> no session exists (null)
    * @link https://github.com/nextauthjs/next-auth/issues/1535
    */
-  const session =
-    context_opts && (await getServerSession(context_opts, next_auth_opts));
+  const session = await getServerSession(opts, nextAuthOptions);
 
   // for API-response caching see https://trpc.io/docs/caching
   return {

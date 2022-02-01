@@ -1,4 +1,4 @@
-jest.setTimeout(35e3);
+jest.setTimeout(60e3);
 
 test('all pages load', async () => {
   const visited = new Set<string>();

@@ -54,7 +54,7 @@
     "start-server-and-test": "^1.12.0",
     "superjson": "^1.7.4",
     "tailwindcss": "^2.2.19",
-    "zod": "^3.0.0"
+    "zod": "^3.14.3"
   },
   "devDependencies": {
     "@types/jest": "^27.4.0",
@@ -64,7 +64,7 @@
     "@typescript-eslint/parser": "^4.26.0",
     "cross-env": "^7.0.3",
     "eslint": "^7.32.0",
-    "eslint-config-next": "^12.0.0",
+    "eslint-config-next": "^12.1.2",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.25.1",

@@ -52,7 +52,7 @@
     "react-hook-form": "^7.28.1",
     "react-query": "^3.34.19",
     "start-server-and-test": "^1.12.0",
-    "superjson": "^1.7.4",
+    "superjson": "^1.8.1",
     "tailwindcss": "^2.2.19",
     "zod": "^3.14.3"
   },

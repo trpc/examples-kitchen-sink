@@ -7,6 +7,12 @@ import { z } from 'zod';
 export const validationSchema = z.object({
   title: z.string().min(2),
   text: z.string().min(5),
+  dateStr: z
+    .string()
+    .transform((value) => new Date(value))
+    .refine((value) => !isNaN(value.getTime()), {
+      message: 'Invalid date',
+    }),
 });
 
 export default function Page() {
@@ -26,6 +32,7 @@ export default function Page() {
     defaultValues: {
       title: '',
       text: '',
+      dateStr: '2020-01-01',
     },
   });
 
@@ -73,6 +80,22 @@ export default function Page() {
           {methods.formState.errors.text?.message && (
             <p className="text-red-700">
               {methods.formState.errors.text?.message}
+            </p>
+          )}
+        </div>
+        <div>
+          <label>
+            dateStr
+            <br />
+            <input
+              {...methods.register('dateStr')}
+              className="border"
+              type="date"
+            />
+          </label>
+          {methods.formState.errors.dateStr?.message && (
+            <p className="text-red-700">
+              {methods.formState.errors.dateStr?.message}
             </p>
           )}
         </div>

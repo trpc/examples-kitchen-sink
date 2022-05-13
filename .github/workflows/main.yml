@@ -4,6 +4,7 @@ jobs:
   e2e:
     env:
       DATABASE_URL: postgresql://postgres:@localhost:5432/trpcdb
+      NEXTAUTH_SECRET: test
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:

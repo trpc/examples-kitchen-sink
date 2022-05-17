@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@heroicons/react": "^1.0.6",
-    "@hookform/resolvers": "^2.8.3",
+    "@hookform/resolvers": "^2.8.10",
     "@prisma/client": "^3.14.0",
     "@tailwindcss/forms": "^0.3.4",
     "@tailwindcss/typography": "^0.4.1",

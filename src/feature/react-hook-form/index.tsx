@@ -9,6 +9,8 @@ export const validationSchema = z.object({
   text: z.string().min(5),
 });
 
+type ValidationSchemaInput = typeof validationSchema['_input'];
+
 export default function Page() {
   const utils = trpc.useContext();
   const query = trpc.useQuery(['reactHookForm.list'], { suspense: true });
@@ -21,7 +23,7 @@ export default function Page() {
     },
   });
 
-  const methods = useForm({
+  const methods = useForm<ValidationSchemaInput>({
     resolver: zodResolver(validationSchema, undefined, {
       // Ensures `.transform()` isn't applied both on the backend and the frontend
       rawValues: true,

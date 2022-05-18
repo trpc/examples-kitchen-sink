@@ -1,4 +1,4 @@
-import { zodResolver } from '@hookform/resolvers/zod/dist/zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { trpc } from 'utils/trpc';
 import { z } from 'zod';
@@ -22,7 +22,10 @@ export default function Page() {
   });
 
   const methods = useForm({
-    resolver: zodResolver(validationSchema),
+    resolver: zodResolver(validationSchema, undefined, {
+      // Ensures `.transform()` aren't used on both backend and frontend
+      rawValues: true,
+    }),
     defaultValues: {
       title: '',
       text: '',

@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+import { useForm, UseFormProps } from 'react-hook-form';
 import { trpc } from 'utils/trpc';
 import { z } from 'zod';
 
@@ -9,7 +9,21 @@ export const validationSchema = z.object({
   text: z.string().min(5),
 });
 
-type ValidationSchemaInput = typeof validationSchema['_input'];
+function useZodForm<TSchema extends z.ZodType>(
+  props: Omit<UseFormProps<TSchema['_input']>, 'resolver'> & {
+    schema: TSchema;
+  },
+) {
+  const form = useForm<TSchema['_input']>({
+    ...props,
+    resolver: zodResolver(props.schema, undefined, {
+      // This makes it so we can use `.transform()`s on the schema without same transform getting applied again when it reaches the server
+      rawValues: true,
+    }),
+  });
+
+  return form;
+}
 
 export default function Page() {
   const utils = trpc.useContext();
@@ -23,11 +37,8 @@ export default function Page() {
     },
   });
 
-  const methods = useForm<ValidationSchemaInput>({
-    resolver: zodResolver(validationSchema, undefined, {
-      // Ensures `.transform()` isn't applied both on the backend and the frontend
-      rawValues: true,
-    }),
+  const methods = useZodForm({
+    schema: validationSchema,
     defaultValues: {
       title: '',
       text: '',

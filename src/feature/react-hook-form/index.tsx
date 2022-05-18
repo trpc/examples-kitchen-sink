@@ -23,7 +23,7 @@ export default function Page() {
 
   const methods = useForm({
     resolver: zodResolver(validationSchema, undefined, {
-      // Ensures `.transform()` aren't used on both backend and frontend
+      // Ensures `.transform()` isn't applied both on the backend and the frontend
       rawValues: true,
     }),
     defaultValues: {

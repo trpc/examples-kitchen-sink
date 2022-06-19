@@ -13,5 +13,6 @@ export const meta: ExampleProps = {
   files: [
     { title: 'Router', path: 'feature/ssg/router.ts' },
     { title: 'Page', path: 'pages/ssg.tsx' },
+    { title: 'Infer SSG Helper', path: 'utils/inferSSGProps.ts' },
   ],
 };

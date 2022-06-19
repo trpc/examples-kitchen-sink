@@ -7,9 +7,7 @@ import { ExamplePage } from 'utils/ExamplePage';
 import { inferSSGProps } from 'utils/inferSSGProps';
 import { trpc } from 'utils/trpc';
 
-export default function Page(
-  props: inferSSGProps<typeof getStaticProps>,
-) {
+export default function Page(props: inferSSGProps<typeof getStaticProps>) {
   const { id } = props;
   const query = trpc.useQuery(['ssg.byId', { id }]);
 

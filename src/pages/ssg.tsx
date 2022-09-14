@@ -2,7 +2,7 @@ import { createSSGHelpers } from '@trpc/react/ssg';
 import { meta } from 'feature/ssg/meta';
 import { InferGetStaticPropsType } from 'next';
 import { createContext } from 'server/context';
-import { appRouter } from 'server/routers/_app';
+import { appRouter } from 'server/trpc/routers/_app';
 import superjson from 'superjson';
 import { ExamplePage } from 'utils/ExamplePage';
 import { trpc } from 'utils/trpc';

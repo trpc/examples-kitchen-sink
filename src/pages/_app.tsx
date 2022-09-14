@@ -1,12 +1,8 @@
 import '../styles/globals.css';
 
-import { httpBatchLink } from '@trpc/client/links/httpBatchLink';
-import { loggerLink } from '@trpc/client/links/loggerLink';
-import { withTRPC } from '@trpc/next';
 import { AppType } from 'next/dist/shared/lib/utils';
 import { useEffect, useState } from 'react';
-import { AppRouter } from 'server/routers/_app';
-import superjson from 'superjson';
+import { trpc } from 'utils/trpc';
 
 function ContributorsWantedBanner() {
   const [visible, setVisible] = useState(false);
@@ -67,56 +63,4 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   );
 };
 
-function getBaseUrl() {
-  if (process.browser) {
-    return '';
-  }
-  // reference for vercel.com
-  if (process.env.VERCEL_URL) {
-    return `https://${process.env.VERCEL_URL}`;
-  }
-
-  // // reference for render.com
-  if (process.env.RENDER_INTERNAL_HOSTNAME) {
-    return `http://${process.env.RENDER_INTERNAL_HOSTNAME}:${process.env.PORT}`;
-  }
-
-  // assume localhost
-  return `http://localhost:${process.env.PORT ?? 3000}`;
-}
-
-export default withTRPC<AppRouter>({
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  config() {
-    /**
-     * If you want to use SSR, you need to use the server's full URL
-     * @link https://trpc.io/docs/ssr
-     */
-    return {
-      /**
-       * @link https://trpc.io/docs/links
-       */
-      links: [
-        // adds pretty logs to your console in development and logs errors in production
-        loggerLink({
-          enabled: () => true,
-        }),
-        httpBatchLink({
-          url: `${getBaseUrl()}/api/trpc`,
-        }),
-      ],
-      /**
-       * @link https://trpc.io/docs/data-transformers
-       */
-      transformer: superjson,
-      /**
-       * @link https://react-query.tanstack.com/reference/QueryClient
-       */
-      // queryClientConfig: { defaultOptions: { queries: { staleTime: 60 } } },
-    };
-  },
-  /**
-   * @link https://trpc.io/docs/ssr
-   */
-  ssr: false,
-})(MyApp);
+export default trpc.withTRPC(MyApp);

@@ -1,4 +1,4 @@
-import * as trpc from '@trpc/server';
+import { createRouter } from 'server/createRouter';
 import { z } from 'zod';
 
 const posts = [
@@ -8,7 +8,7 @@ const posts = [
   },
 ];
 
-export const router = trpc.router().query('ssg.byId', {
+export const router = createRouter().query('ssg.byId', {
   input: z.object({
     id: z.string(),
   }),

@@ -1,4 +1,4 @@
-import * as trpc from '@trpc/server';
+import { createRouter } from 'server/createRouter';
 
 import { validationSchema } from './index';
 
@@ -10,8 +10,7 @@ const items = [
   },
 ];
 
-export const router = trpc
-  .router()
+export const router = createRouter()
   .query('reactHookForm.list', {
     async resolve() {
       return items;

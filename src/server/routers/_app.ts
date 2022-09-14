@@ -31,6 +31,7 @@ export const appRouter = createRouter()
   // features:
   .merge(nextAuthRouter)
   .merge(ssgRouter)
-  .merge(reactHookFormRouter);
+  .merge(reactHookFormRouter)
+  .interop();
 
 export type AppRouter = typeof appRouter;

@@ -1,16 +1,9 @@
-import { PrismaClient } from '@prisma/client';
 import * as trpc from '@trpc/server';
 import * as trpcNext from '@trpc/server/adapters/next';
 import { unstable_getServerSession } from 'next-auth';
 
-import { authOptions as nextAuthOptions } from '../pages/api/auth/[...nextauth]';
-
-const prisma = new PrismaClient({
-  log:
-    process.env.NODE_ENV === 'development'
-      ? ['query', 'error', 'warn']
-      : ['error'],
-});
+import { authOptions as nextAuthOptions } from '../../pages/api/auth/[...nextauth]';
+import { prisma } from '../utils/prisma';
 
 /**
  * Creates context for an incoming request

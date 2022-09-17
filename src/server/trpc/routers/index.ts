@@ -1,6 +1,7 @@
 /**
  * This file contains the root router of your tRPC-backend
  */
+import { authRouter } from 'feature/next-auth/router';
 import ssgRouter from 'feature/ssg/router';
 
 import { t } from '../trpc';
@@ -11,6 +12,7 @@ export const appRouter = t.router({
 
   source: sourceRouter,
   ssg: ssgRouter,
+  auth: authRouter,
 });
 export type AppRouter = typeof appRouter;
 

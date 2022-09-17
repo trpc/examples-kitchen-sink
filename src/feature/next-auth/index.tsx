@@ -46,7 +46,8 @@ function MiddlewareQuery() {
       </h3>
       {secretCode ? (
         <>
-          You&apos;re logged in. The secret code from the server is {secretCode}
+          You&apos;re logged in. The secret code from the server is: &quot;
+          {secretCode}&quot;
           <br />
         </>
       ) : (

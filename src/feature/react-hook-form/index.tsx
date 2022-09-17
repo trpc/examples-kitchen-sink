@@ -55,15 +55,15 @@ export default function Page() {
     <>
       <h2 className="text-3xl font-bold">Posts</h2>
 
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 py-2">
         {posts &&
           posts.map((post) => (
             <article
               key={post.id}
-              className="prose bg-white shadow overflow-hidden sm:rounded-lg p-4"
+              className="bg-white shadow overflow-hidden sm:rounded-lg p-4"
             >
-              <h3>{post.title}</h3>
-              <p>{post.text}</p>
+              <h3 className="text-xl font-bold">{post.title}</h3>
+              <p className="my-2">{post.text}</p>
             </article>
           ))}
       </div>

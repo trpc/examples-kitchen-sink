@@ -62,26 +62,12 @@ export const baseTRPC = createTRPCNext<AppRouter>({
 
 /**
  * A set of strongly-typed React hooks from your `AppRouter` type signature with `createReactQueryHooks`.
- * @link https://trpc.io/docs/react#3-create-trpc-hooks
+ * @link https://trpc.io/docs/v10/react#2-create-trpc-hooks
  */
 
 /**
- * These are helper types to infer the input and output of query resolvers
- * @example type HelloOutput = inferQueryOutput<'hello'>
+ * You can use inferrence to get types for procedure input and output
+ * this is equivalent to inferQueryOutput/inferQueryInput/inferMutationOutput/inferMutationInput in v9
+ * @example type SourceInput = inferProcedureInput<AppRouter['source']['getSource']>;
+ * @example type SourceOutput = inferProcedureOutput<AppRouter['source']['getSource']>;
  */
-// TODO: how do these work in v10?
-export type inferQueryOutput<
-  TRouteKey extends keyof AppRouter['_def']['queries'],
-> = inferProcedureOutput<AppRouter['_def']['queries'][TRouteKey]>;
-
-export type inferQueryInput<
-  TRouteKey extends keyof AppRouter['_def']['queries'],
-> = inferProcedureInput<AppRouter['_def']['queries'][TRouteKey]>;
-
-export type inferMutationOutput<
-  TRouteKey extends keyof AppRouter['_def']['mutations'],
-> = inferProcedureOutput<AppRouter['_def']['mutations'][TRouteKey]>;
-
-export type inferMutationInput<
-  TRouteKey extends keyof AppRouter['_def']['mutations'],
-> = inferProcedureInput<AppRouter['_def']['mutations'][TRouteKey]>;

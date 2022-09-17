@@ -17,7 +17,7 @@ const authMiddleware = t.middleware(async ({ ctx, next }) => {
 const authedProcedure = t.procedure.use(authMiddleware);
 
 export const authRouter = t.router({
-  getSession: t.procedure.query(async ({ ctx }) => {
+  getSession: t.procedure.query(({ ctx }) => {
     // The session object is added to the routers context
     // in the context file server side
     return ctx.session;

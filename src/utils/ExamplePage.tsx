@@ -42,6 +42,7 @@ export default function Breadcrumbs(props: {
   pages: { title: string; href: string }[];
 }) {
   const router = useRouter();
+
   return (
     <nav className="flex" aria-label="Breadcrumb">
       <ol role="list" className="flex items-center space-x-4">
@@ -178,8 +179,8 @@ export function ExamplePage(
   },
 ) {
   const routerQuery = useRouter().query;
-
   const utils = trpc.useContext();
+
   useEffect(() => {
     for (const file of props.files) {
       utils.source.getSource.prefetch({ path: file.path });
@@ -244,7 +245,6 @@ export function ExamplePage(
                       )}
                     >
                       <CodeIcon className="btn__icon" aria-hidden="true" />
-                      {/* {file.title} */}
                       <code>{basename(file.path)}</code>
                     </a>
                   </Link>

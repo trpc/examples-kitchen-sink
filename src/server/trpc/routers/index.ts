@@ -18,7 +18,7 @@ export const appRouter = t.router({
   healthcheck: t.procedure.query(() => 'ok'),
 
   source: sourceRouter,
-  ssg: ssgRouter,
+  ssgRouter: ssgRouter,
   auth: authRouter,
   reactHookForm: reactHookFormRouter,
 });

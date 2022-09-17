@@ -1,8 +1,8 @@
-import { createSSGHelpers } from '@trpc/react/ssg';
+import { createProxySSGHelpers } from '@trpc/react/ssg';
 import { meta } from 'feature/ssg/meta';
 import { InferGetStaticPropsType } from 'next';
-import { createContext } from 'server/context';
-import { appRouter } from 'server/trpc/routers/_app';
+import { createContext } from 'server/trpc/context';
+import { appRouter } from 'server/trpc/routers';
 import superjson from 'superjson';
 import { ExamplePage } from 'utils/ExamplePage';
 import { trpc } from 'utils/trpc';
@@ -11,15 +11,16 @@ export default function Page(
   props: InferGetStaticPropsType<typeof getStaticProps>,
 ) {
   const { id } = props;
-  const query = trpc.useQuery(['ssg.byId', { id }]);
+  const query = trpc.ssgRouter.byId.useQuery({ id });
 
+  // TODO: remove this
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const post = query.data!;
   return (
     <>
       <ExamplePage {...meta}>
-        <article className="prose">
-          <h2>{post.title}</h2>
+        <article>
+          <h2 className="text-2xl font-bold">{post.title}</h2>
         </article>
       </ExamplePage>
     </>
@@ -27,14 +28,14 @@ export default function Page(
 }
 
 export async function getStaticProps() {
-  const ssg = createSSGHelpers({
+  const ssgHelper = createProxySSGHelpers({
     router: appRouter,
     ctx: await createContext(),
-    transformer: superjson, // adds superjson serialization
+    transformer: superjson, // optional - adds superjson serialization
   });
 
   const id = '1';
-  const post = await ssg.fetchQuery('ssg.byId', { id });
+  const post = await ssgHelper.ssgRouter.byId.fetch({ id });
 
   if (!post) {
     return {
@@ -43,7 +44,7 @@ export async function getStaticProps() {
   }
   return {
     props: {
-      trpcState: ssg.dehydrate(),
+      trpcState: ssgHelper.dehydrate(),
       id,
     },
     revalidate: 1,

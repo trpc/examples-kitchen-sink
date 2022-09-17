@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { EyeIcon } from '@heroicons/react/outline';
 import { CodeIcon } from '@heroicons/react/outline';
 import { CheckIcon, ClipboardCopyIcon, HomeIcon } from '@heroicons/react/solid';
@@ -7,7 +6,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Highlight, { defaultProps } from 'prism-react-renderer';
 import theme from 'prism-react-renderer/themes/vsDark';
-import { Fragment, ReactNode, Suspense, useEffect, useState } from 'react';
+import { Fragment, ReactNode, Suspense, useEffect } from 'react';
 
 import { ErrorBoundary } from './ClientSuspense';
 import { trpc } from './trpc';
@@ -117,7 +116,7 @@ function Code(props: { contents: string; language: string }) {
 }
 
 function basename(path: string) {
-  return path.split('/').pop()!;
+  return path.split('/').pop() ?? '';
 }
 
 function ViewSource(props: SourceFile) {
@@ -132,7 +131,7 @@ function ViewSource(props: SourceFile) {
   );
 
   const filename = basename(props.path);
-  const language = filename.split('.').pop()!;
+  const language = filename.split('.').pop() ?? '';
 
   const [hasCopied, copy] = useClipboard(query.data?.contents || '');
 

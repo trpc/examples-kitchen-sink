@@ -50,16 +50,18 @@ export default function Page() {
     <>
       <h2 className="text-3xl font-bold">Posts</h2>
 
-      {posts &&
-        posts.map((post) => (
-          <article
-            key={post.id}
-            className="prose bg-white shadow overflow-hidden sm:rounded-lg p-4"
-          >
-            <h3>{post.title}</h3>
-            <p>{post.text}</p>
-          </article>
-        ))}
+      <div className="flex flex-col gap-2">
+        {posts &&
+          posts.map((post) => (
+            <article
+              key={post.id}
+              className="prose bg-white shadow overflow-hidden sm:rounded-lg p-4"
+            >
+              <h3>{post.title}</h3>
+              <p>{post.text}</p>
+            </article>
+          ))}
+      </div>
 
       <h2 className="text-2xl font-bold">Add a post</h2>
       <form

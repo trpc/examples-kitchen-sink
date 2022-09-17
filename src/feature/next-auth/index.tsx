@@ -13,7 +13,7 @@ export default function NextAuth() {
 }
 
 function ServerSideSessionCheck() {
-  const query = trpc.useQuery(['next-auth.getSession'], { suspense: true });
+  const query = trpc.auth.getSession.useQuery(undefined, { suspense: true });
 
   const session = query.data;
 
@@ -36,7 +36,7 @@ function ServerSideSessionCheck() {
 }
 
 function MiddlewareQuery() {
-  const query = trpc.useQuery(['next-auth.getSecretCode']);
+  const query = trpc.auth.getSecretCode.useQuery();
 
   const secretCode = query.data;
   return (
@@ -60,7 +60,7 @@ function MiddlewareQuery() {
 }
 
 function SignInButton() {
-  const query = trpc.useQuery(['next-auth.getSession'], { suspense: true });
+  const query = trpc.auth.getSession.useQuery(undefined, { suspense: true });
 
   const session = query.data;
 

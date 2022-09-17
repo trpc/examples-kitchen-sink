@@ -10,7 +10,7 @@ body {
 }
 
 .btn {
-  @apply relative inline-flex items-center px-3 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-500 transition ease-in-out duration-150 rounded-md transition-colors;
+  @apply relative inline-flex items-center px-3 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium text-gray-500 transition ease-in-out duration-150 rounded-md;
 }
 .btn__icon {
   @apply mr-2 h-5 w-5 transition-colors opacity-90;

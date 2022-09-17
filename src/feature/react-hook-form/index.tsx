@@ -28,7 +28,12 @@ function useZodForm<TSchema extends z.ZodType>(
 
 export default function Page() {
   const utils = trpc.useContext();
-  const query = trpc.reactHookForm.list.useQuery(undefined, { suspense: true });
+  const query = trpc.reactHookForm.list.useQuery(undefined, {
+    suspense: true,
+    // not refetching, because we're not actually persisting any posts on the server
+    refetchInterval: Infinity,
+    refetchOnWindowFocus: false,
+  });
 
   const posts = query.data;
 

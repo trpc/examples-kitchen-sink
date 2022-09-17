@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, UseFormProps } from 'react-hook-form';
-import { trpc } from 'utils/trpc';
+import { baseTRPC } from 'utils/trpc';
 import { z } from 'zod';
 
 // validation schema is used by server
@@ -22,9 +22,12 @@ function useZodForm<TSchema extends z.ZodType>(
   return form;
 }
 
+const useTRPCContext = () => baseTRPC.useContext().reactHookForm;
+const trpc = baseTRPC.reactHookForm;
+
 export default function Page() {
-  const utils = trpc.useContext();
-  const query = trpc.reactHookForm.list.useQuery(undefined, {
+  const utils = useTRPCContext();
+  const query = trpc.list.useQuery(undefined, {
     suspense: true,
     // not refetching, because we're not actually persisting any posts on the server
     refetchInterval: Infinity,
@@ -33,9 +36,9 @@ export default function Page() {
 
   const posts = query.data;
 
-  const mutation = trpc.reactHookForm.add.useMutation({
+  const mutation = trpc.add.useMutation({
     onSuccess: async () => {
-      await utils.reactHookForm.list.invalidate();
+      await utils.list.invalidate();
     },
   });
 

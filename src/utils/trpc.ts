@@ -27,7 +27,7 @@ function getBaseUrl() {
   return `http://localhost:${process.env.PORT ?? 3000}`; // dev SSR should use localhost
 }
 
-export const trpc = createTRPCNext<AppRouter>({
+export const baseTRPC = createTRPCNext<AppRouter>({
   /**
    * Config options:
    * https://trpc.io/docs/v10/nextjs#createtrpcnext-options

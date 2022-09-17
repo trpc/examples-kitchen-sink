@@ -120,13 +120,8 @@ function basename(path: string) {
 }
 
 function ViewSource(props: SourceFile) {
-  const query = trpc.useQuery(
-    [
-      'source.getSource',
-      {
-        path: props.path,
-      },
-    ],
+  const query = trpc.source.getSource.useQuery(
+    { path: props.path },
     {
       cacheTime: Infinity,
       refetchOnWindowFocus: false,
@@ -134,6 +129,7 @@ function ViewSource(props: SourceFile) {
       refetchOnReconnect: false,
     },
   );
+
   const filename = basename(props.path);
   const language = filename.split('.').pop()!;
 
@@ -186,7 +182,7 @@ export function ExamplePage(
   const utils = trpc.useContext();
   useEffect(() => {
     for (const file of props.files) {
-      utils.prefetchQuery(['source.getSource', { path: file.path }]);
+      utils.source.getSource.prefetch({ path: file.path });
     }
   }, [props.files, utils]);
 

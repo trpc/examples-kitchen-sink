@@ -7,9 +7,9 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Highlight, { defaultProps } from 'prism-react-renderer';
 import theme from 'prism-react-renderer/themes/vsDark';
-import { Fragment, ReactNode, useEffect } from 'react';
+import { Fragment, ReactNode, Suspense, useEffect, useState } from 'react';
 
-import { ClientSuspense, ErrorBoundary } from './ClientSuspense';
+import { ErrorBoundary } from './ClientSuspense';
 import { trpc } from './trpc';
 import { useClipboard } from './useClipboard';
 
@@ -179,6 +179,7 @@ export function ExamplePage(
   },
 ) {
   const routerQuery = useRouter().query;
+
   const utils = trpc.useContext();
 
   useEffect(() => {
@@ -192,7 +193,6 @@ export function ExamplePage(
       <Head>
         <title>{props.title}</title>
       </Head>
-
       <div className="bg-primary-400">
         <div className="max-w-2xl mx-auto text-center py-16 px-4 sm:py-4 sm:px-6 lg:px-8">
           <h1 className="text-3xl font-extrabold text-white sm:text-4xl">
@@ -251,10 +251,12 @@ export function ExamplePage(
                 ))}
               </div>
             </div>
+
             <div className="rounded-lg bg-white p-4">
               <ErrorBoundary>
-                <ClientSuspense fallback={<Spinner />}>
+                <Suspense fallback={<Spinner />}>
                   {!routerQuery.file && props.children}
+
                   {props.files.map((file) => (
                     <Fragment key={file.path}>
                       {file.path === routerQuery.file && (
@@ -262,7 +264,7 @@ export function ExamplePage(
                       )}
                     </Fragment>
                   ))}
-                </ClientSuspense>
+                </Suspense>
               </ErrorBoundary>
             </div>
           </div>

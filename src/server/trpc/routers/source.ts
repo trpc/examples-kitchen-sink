@@ -13,7 +13,6 @@ export const sourceRouter = t.router({
         }),
       }),
     )
-    // TODO: check if we're going up the correct amount of levels!
     .query(async ({ input }) => {
       const ROOT = path.resolve(__dirname + '/../../../../../src') + '/';
       const contents = fs.readFileSync(ROOT + input.path).toString('utf8');

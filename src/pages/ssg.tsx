@@ -15,9 +15,9 @@ export default function Page(
   const { id } = props;
   const query = trpc.byId.useQuery({ id });
 
-  // TODO: remove this
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const post = query.data!;
+
   return (
     <>
       <ExamplePage {...meta}>

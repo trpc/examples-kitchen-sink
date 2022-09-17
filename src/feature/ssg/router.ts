@@ -1,4 +1,4 @@
-import { createRouter } from 'server/createRouter';
+import { t } from 'server/trpc/trpc';
 import { z } from 'zod';
 
 const posts = [
@@ -8,12 +8,17 @@ const posts = [
   },
 ];
 
-export const router = createRouter().query('ssg.byId', {
-  input: z.object({
-    id: z.string(),
-  }),
-  async resolve({ input }) {
-    const post = posts.find((post) => post.id === input.id);
-    return post ?? null;
-  },
+const ssgRouter = t.router({
+  byId: t.procedure
+    .input(
+      z.object({
+        id: z.string(),
+      }),
+    )
+    .query(async ({ input }) => {
+      const post = posts.find((post) => post.id === input.id);
+      return post ?? null;
+    }),
 });
+
+export default ssgRouter;

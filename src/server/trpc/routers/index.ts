@@ -1,6 +1,8 @@
 /**
  * This file contains the root router of your tRPC-backend
  */
+import ssgRouter from 'feature/ssg/router';
+
 import { t } from '../trpc';
 import { sourceRouter } from './source';
 
@@ -8,6 +10,7 @@ export const appRouter = t.router({
   healthcheck: t.procedure.query(() => 'ok'),
 
   source: sourceRouter,
+  ssg: ssgRouter,
 });
 export type AppRouter = typeof appRouter;
 

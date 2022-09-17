@@ -1,4 +1,4 @@
-import { createRouter } from 'server/createRouter';
+import { t } from 'server/trpc/trpc';
 
 import { validationSchema } from './index';
 
@@ -10,25 +10,22 @@ const items = [
   },
 ];
 
-export const router = createRouter()
-  .query('reactHookForm.list', {
-    async resolve() {
-      return items;
-    },
-  })
-  .mutation('reactHookForm.add', {
-    input: validationSchema,
-    async resolve({ input }) {
-      const id = Math.random()
-        .toString(36)
-        .replace(/[^a-z]+/g, '')
-        .substr(0, 6);
-      const item = {
-        id,
-        ...input,
-      };
-      items.push(item);
+export const reactHookFormRouter = t.router({
+  list: t.procedure.query(async () => {
+    return items;
+  }),
 
-      return item;
-    },
-  });
+  add: t.procedure.input(validationSchema).mutation(({ input }) => {
+    const id = Math.random()
+      .toString(36)
+      .replace(/[^a-z]+/g, '')
+      .slice(0, 6);
+    const item = {
+      id,
+      ...input,
+    };
+    items.push(item);
+
+    return item;
+  }),
+});

@@ -47,10 +47,10 @@ function ContributorsWantedBanner() {
   );
 }
 
-const MyApp: AppType = ({ Component, pageProps }) => {
+const MyApp: AppType = (props) => {
   return (
     <>
-      <Component {...pageProps} />
+      <props.Component {...props.pageProps} />
       <ContributorsWantedBanner />
     </>
   );

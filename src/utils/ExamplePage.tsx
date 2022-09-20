@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Highlight, { defaultProps } from 'prism-react-renderer';
 import theme from 'prism-react-renderer/themes/vsDark';
-import { Fragment, ReactNode, Suspense, useEffect } from 'react';
+import { Fragment, ReactNode, Suspense, useEffect, useState } from 'react';
 
 import { ErrorBoundary } from './ClientSuspense';
 import { baseTRPC } from './trpc';
@@ -27,6 +27,10 @@ function clsx(...classes: unknown[]) {
 export interface ExampleProps {
   title: string;
   href: string;
+  /**
+   * Only render this on the client
+   */
+  clientOnly?: boolean;
   /**
    * Summary - shown on home page
    */
@@ -176,6 +180,17 @@ function Spinner() {
     </div>
   );
 }
+
+function ClientOnly(props: { children: ReactNode }) {
+  const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+  if (!isMounted) {
+    return <Spinner />;
+  }
+  return <>{props.children}</>;
+}
 export function ExamplePage(
   props: ExampleProps & {
     children?: ReactNode;
@@ -190,6 +205,22 @@ export function ExamplePage(
     }
   }, [props.files, utils]);
 
+  const innerContent = (
+    <Suspense fallback={<Spinner />}>
+      {!routerQuery.file && props.children}
+
+      {props.files.map((file) => (
+        <Fragment key={file.path}>
+          {file.path === routerQuery.file && <ViewSource {...file} />}
+        </Fragment>
+      ))}
+    </Suspense>
+  );
+  const content = props.clientOnly ? (
+    <ClientOnly>{innerContent}</ClientOnly>
+  ) : (
+    innerContent
+  );
   return (
     <>
       <Head>
@@ -255,19 +286,7 @@ export function ExamplePage(
             </div>
 
             <div className="rounded-lg bg-white p-4">
-              <ErrorBoundary>
-                <Suspense fallback={<Spinner />}>
-                  {!routerQuery.file && props.children}
-
-                  {props.files.map((file) => (
-                    <Fragment key={file.path}>
-                      {file.path === routerQuery.file && (
-                        <ViewSource {...file} />
-                      )}
-                    </Fragment>
-                  ))}
-                </Suspense>
-              </ErrorBoundary>
+              <ErrorBoundary>{content}</ErrorBoundary>
             </div>
           </div>
         </div>

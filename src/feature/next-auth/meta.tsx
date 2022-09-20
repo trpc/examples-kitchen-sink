@@ -3,6 +3,9 @@ import { ExampleProps } from 'utils/ExamplePage';
 export const meta: ExampleProps = {
   title: 'Next-Auth Authentication',
   href: '/next-auth',
+  // This is only enabled on the client as it will cause hydration error otherwise
+  // The problem is that RSC won't send the right header whilst the client will, leading to inconsistent behavior
+  clientOnly: true,
   summary: (
     <>
       <p>

@@ -3,15 +3,8 @@
   "version": "9.14.0",
   "private": true,
   "scripts": {
-    "build:1-migrate": "prisma migrate deploy",
-    "build:2-build": "next build",
-    "build": "run-s build:*",
-    "db-up": "docker-compose up -d",
-    "db-seed": "prisma db seed",
-    "db-migrate-dev": "yarn prisma migrate dev",
-    "db-nuke": "docker-compose down --volumes --remove-orphans",
+    "build": "next build",
     "dev": "next dev",
-    "dx": "cross-env DATABASE_URL=postgresql://postgres:@localhost:5792/trpcdb run-s db-up db-migrate-dev db-seed dev",
     "start": "next start",
     "lint": "eslint src",
     "lint-fix": "yarn lint --fix",
@@ -20,11 +13,7 @@
     "test": "run-s test:*",
     "test:unit": "jest",
     "test:e2e": "jest --config jest.playwright.config.ts",
-    "ts-node": "ts-node --compiler-options \"{\\\"module\\\":\\\"commonjs\\\"}\"",
-    "postinstall": "prisma generate"
-  },
-  "prisma": {
-    "seed": "yarn ts-node prisma/seed.ts"
+    "ts-node": "ts-node --compiler-options \"{\\\"module\\\":\\\"commonjs\\\"}\""
   },
   "prettier": {
     "printWidth": 80,
@@ -34,7 +23,6 @@
   "dependencies": {
     "@heroicons/react": "^1.0.6",
     "@hookform/resolvers": "^2.8.10",
-    "@prisma/client": "^4.3.1",
     "@tanstack/react-query": "^4.2.3",
     "@trpc/client": "^10.0.0-proxy-alpha.76",
     "@trpc/next": "^10.0.0-proxy-alpha.76",
@@ -75,7 +63,6 @@
     "playwright": "^1.22.1",
     "postcss": "^8.4.16",
     "prettier": "^2.6.2",
-    "prisma": "^4.3.1",
     "ts-jest": "^27.0.5",
     "ts-node": "^10.7.0",
     "typescript": "4.7.4"

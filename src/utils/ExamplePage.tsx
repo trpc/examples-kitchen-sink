@@ -240,9 +240,9 @@ export function ExamplePage(
           <Breadcrumbs pages={[props]} />
           <hr className="w-full border-t border-gray-300" />
           <div className="border-l-2 bg-white border-primary-400 overflow-hidden py-2 px-4 space-y-2">
-            <div className="text-2xl p-2">
-              <h3 className="font-bold">{props.title}</h3>
-              {props.detail || props.summary}
+            <div className="p-2">
+              <h3 className="text-2xl font-bold mb-2">{props.title}</h3>
+              <div className="prose">{props.detail || props.summary}</div>
             </div>
           </div>
           <div id="content">

@@ -29,9 +29,6 @@ export default function Page() {
   const utils = useTRPCContext();
   const query = trpc.list.useQuery(undefined, {
     suspense: true,
-    // not refetching, because we're not actually persisting any posts on the server
-    refetchInterval: Infinity,
-    refetchOnWindowFocus: false,
   });
 
   const posts = query.data;

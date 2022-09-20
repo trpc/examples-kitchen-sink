@@ -3,6 +3,7 @@
  */
 import { authRouter } from 'feature/next-auth/router';
 import { reactHookFormRouter } from 'feature/react-hook-form/router';
+import rscRouter from 'feature/rsc/router';
 import ssgRouter from 'feature/ssg/router';
 
 import { t } from '../trpc';
@@ -21,5 +22,6 @@ export const appRouter = t.router({
   ssgRouter: ssgRouter,
   auth: authRouter,
   reactHookForm: reactHookFormRouter,
+  rsc: rscRouter,
 });
 export type AppRouter = typeof appRouter;

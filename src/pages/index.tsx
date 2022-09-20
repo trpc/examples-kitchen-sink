@@ -1,11 +1,17 @@
 import { meta as nextAuthMeta } from 'feature/next-auth/meta';
 import { meta as reactHookFormMeta } from 'feature/react-hook-form/meta';
+import { meta as rscMeta } from 'feature/rsc/meta';
 import { meta as ssgMeta } from 'feature/ssg/meta';
 import Head from 'next/head';
 import Link from 'next/link';
 import { ExampleProps } from 'utils/ExamplePage';
 
-const propsList: ExampleProps[] = [reactHookFormMeta, ssgMeta, nextAuthMeta];
+const propsList: ExampleProps[] = [
+  reactHookFormMeta,
+  ssgMeta,
+  nextAuthMeta,
+  rscMeta,
+];
 
 export default function Page() {
   return (

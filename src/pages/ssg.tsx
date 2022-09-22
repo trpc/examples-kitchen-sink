@@ -5,15 +5,13 @@ import { createContext } from 'server/trpc/context';
 import { appRouter } from 'server/trpc/routers';
 import superjson from 'superjson';
 import { ExamplePage } from 'utils/ExamplePage';
-import { baseTRPC } from 'utils/trpc';
-
-const trpc = baseTRPC.ssgRouter;
+import { trpc } from 'utils/trpc';
 
 export default function Page(
   props: InferGetStaticPropsType<typeof getStaticProps>,
 ) {
   const { id } = props;
-  const query = trpc.byId.useQuery({ id });
+  const query = trpc.ssgRouter.byId.useQuery({ id });
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const post = query.data!;

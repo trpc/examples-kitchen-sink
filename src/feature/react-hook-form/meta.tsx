@@ -3,6 +3,7 @@ import { ExampleProps } from 'utils/ExamplePage';
 export const meta: ExampleProps = {
   title: 'React Hook Form',
   href: '/react-hook-form',
+  clientOnly: true,
   summary: (
     <>
       <p>

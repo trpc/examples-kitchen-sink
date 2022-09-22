@@ -1,7 +1,5 @@
 import { signIn, signOut } from 'next-auth/react';
-import { baseTRPC } from 'utils/trpc';
-
-const trpc = baseTRPC.auth;
+import { trpc } from 'utils/trpc';
 
 export default function NextAuth() {
   return (
@@ -15,7 +13,7 @@ export default function NextAuth() {
 }
 
 function ServerSideSessionCheck() {
-  const query = trpc.getSession.useQuery(undefined, {
+  const query = trpc.authRouter.getSession.useQuery(undefined, {
     suspense: true,
   });
 
@@ -40,7 +38,7 @@ function ServerSideSessionCheck() {
 }
 
 function MiddlewareQuery() {
-  const query = trpc.getSecretCode.useQuery();
+  const query = trpc.authRouter.getSecretCode.useQuery();
 
   const secretCode = query.data;
   return (
@@ -65,7 +63,7 @@ function MiddlewareQuery() {
 }
 
 function SignInButton() {
-  const query = trpc.getSession.useQuery(undefined, {
+  const query = trpc.authRouter.getSession.useQuery(undefined, {
     suspense: true,
   });
 

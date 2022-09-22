@@ -9,11 +9,8 @@ import theme from 'prism-react-renderer/themes/vsDark';
 import { Fragment, ReactNode, Suspense, useEffect, useState } from 'react';
 
 import { ErrorBoundary } from './ClientSuspense';
-import { baseTRPC } from './trpc';
+import { trpc } from './trpc';
 import { useClipboard } from './useClipboard';
-
-const useTRPCContext = () => baseTRPC.useContext().source;
-const trpc = baseTRPC.source;
 
 interface SourceFile {
   title: string;
@@ -128,7 +125,7 @@ function basename(path: string) {
 }
 
 function ViewSource(props: SourceFile) {
-  const query = trpc.getSource.useQuery(
+  const query = trpc.source.getSource.useQuery(
     { path: props.path },
     {
       cacheTime: Infinity,
@@ -197,11 +194,11 @@ export function ExamplePage(
   },
 ) {
   const routerQuery = useRouter().query;
-  const utils = useTRPCContext();
+  const utils = trpc.useContext();
 
   useEffect(() => {
     for (const file of props.files) {
-      utils.getSource.prefetch({ path: file.path });
+      utils.source.getSource.prefetch({ path: file.path });
     }
   }, [props.files, utils]);
 

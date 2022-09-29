@@ -35,6 +35,10 @@ export default function Page() {
     };
   }, [fetchNextPage]);
 
+  if (!posts) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
       <h2 className="text-3xl font-bold py-8">Top Recent Posts from /r/Aww</h2>

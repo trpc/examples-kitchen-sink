@@ -12,7 +12,7 @@ export default function Page() {
     },
   );
   const { data: posts, fetchNextPage, isFetchingNextPage } = myQuery;
-  console.log(posts);
+
   // Setup optional intersection observer to fetch next page when bottom of page is reached.
   // This is not needed if you have a "Load more" button or similar.
   useEffect(() => {

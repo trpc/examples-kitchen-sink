@@ -35,15 +35,11 @@ export default function Page() {
     };
   }, [fetchNextPage]);
 
-  if (!posts) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <>
       <h2 className="text-3xl font-bold py-8">Top Recent Posts from /r/Aww</h2>
       <div className="flex flex-col space-y-3 py-2 min-h-screen">
-        {posts &&
+        {posts ? (
           posts.pages.map((page) => {
             return page.items.data.children.map((post) => (
               <article
@@ -113,10 +109,14 @@ export default function Page() {
                 </div>
               </article>
             ));
-          })}
+          })
+        ) : (
+          <div>Loading...</div>
+        )}
+
+        <div ref={bottomOfPage} className="h-10" />
 
         {isFetchingNextPage && <div>Loading...</div>}
-        <div className="h-1" ref={bottomOfPage} />
       </div>
     </>
   );

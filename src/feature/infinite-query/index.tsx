@@ -116,7 +116,7 @@ export default function Page() {
           })}
 
         {isFetchingNextPage && <div>Loading...</div>}
-        <div ref={bottomOfPage} />
+        <div className="h-1" ref={bottomOfPage} />
       </div>
     </>
   );

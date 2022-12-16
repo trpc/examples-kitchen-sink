@@ -6,10 +6,10 @@ specifiers:
   '@tailwindcss/forms': ^0.5.3
   '@tailwindcss/typography': ^0.5.7
   '@tanstack/react-query': ^4.2.3
-  '@trpc/client': latest
-  '@trpc/next': latest
-  '@trpc/react': latest
-  '@trpc/server': latest
+  '@trpc/client': ^10.5.0
+  '@trpc/next': ^10.5.0
+  '@trpc/react-query': ^10.5.0
+  '@trpc/server': ^10.5.0
   '@types/jest': ^29.2.4
   '@types/node': ^17.0.33
   '@types/react': ^18.0.9
@@ -52,8 +52,8 @@ dependencies:
   '@tailwindcss/typography': 0.5.8_tailwindcss@3.2.4
   '@tanstack/react-query': 4.20.4_biqbaboplfbrettd7655fr4n2y
   '@trpc/client': 10.5.0_@trpc+server@10.5.0
-  '@trpc/next': 10.5.0_vgf6qy6w2xxinxkubv5gtm5j3a
-  '@trpc/react': 9.27.4_qo3gnekkdcz6g6aylnf3vt7vky
+  '@trpc/next': 10.5.0_q3qeoijrc7z2r2d4iqh5huz7ye
+  '@trpc/react-query': 10.5.0_hkttq5uvq7kltri3tppuogqqou
   '@trpc/server': 10.5.0
   autoprefixer: 10.4.13_postcss@8.4.20
   clsx: 1.2.1
@@ -1025,7 +1025,7 @@ packages:
       '@trpc/server': 10.5.0
     dev: false
 
-  /@trpc/next/10.5.0_vgf6qy6w2xxinxkubv5gtm5j3a:
+  /@trpc/next/10.5.0_q3qeoijrc7z2r2d4iqh5huz7ye:
     resolution: {integrity: sha512-beWvrdHZTV7kx4XeLlHKB29EC6VWkkPykWN1eoPkSTeAYMqEIpl46Xgdj6UfiLmuq8yjAi888BahGNdmTMqFZQ==}
     peerDependencies:
       '@tanstack/react-query': ^4.3.8
@@ -1038,6 +1038,7 @@ packages:
     dependencies:
       '@tanstack/react-query': 4.20.4_biqbaboplfbrettd7655fr4n2y
       '@trpc/client': 10.5.0_@trpc+server@10.5.0
+      '@trpc/react-query': 10.5.0_hkttq5uvq7kltri3tppuogqqou
       '@trpc/server': 10.5.0
       next: 12.3.1_biqbaboplfbrettd7655fr4n2y
       react: 18.2.0
@@ -1045,16 +1046,16 @@ packages:
       react-ssr-prepass: 1.5.0_react@18.2.0
     dev: false
 
-  /@trpc/react/9.27.4_qo3gnekkdcz6g6aylnf3vt7vky:
-    resolution: {integrity: sha512-bP74Tf6vWcMoWYiTAvbWrieV9cFQiKUDKRoRj0+VeGJbxdbhdJyUzv4zos0T4SiSKuhgoEm9bP4jWU2NhNhpIA==}
+  /@trpc/react-query/10.5.0_hkttq5uvq7kltri3tppuogqqou:
+    resolution: {integrity: sha512-MBjgssZBy1ZRZVRE4uvnVu7AGcdOhL47Y1NIPGd5WG5ZisNrV6imf7yZ62uNDemnekwTuJT/Lad9r14swvmvzQ==}
     peerDependencies:
-      '@trpc/client': 9.27.4
-      '@trpc/server': 9.27.4
+      '@tanstack/react-query': ^4.3.8
+      '@trpc/client': 10.5.0
+      '@trpc/server': 10.5.0
       react: '>=16.8.0'
       react-dom: '>=16.8.0'
-      react-query: ^3.37.0
     dependencies:
-      '@babel/runtime': 7.20.6
+      '@tanstack/react-query': 4.20.4_biqbaboplfbrettd7655fr4n2y
       '@trpc/client': 10.5.0_@trpc+server@10.5.0
       '@trpc/server': 10.5.0
       react: 18.2.0

@@ -24,6 +24,18 @@ jobs:
 
       - uses: pnpm/action-setup@v2.2.4
 
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
+          key: ${{ runner.os }}-pnpm-store-${{ matrix.dir }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-${{ matrix.dir }}-
+
+      - run: node -v
+      - name: Install deps (with cache)
+        run: pnpm install
+
       - name: Next.js cache
         uses: actions/cache@v2
         with:

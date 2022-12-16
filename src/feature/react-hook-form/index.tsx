@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, UseFormProps } from 'react-hook-form';
-import { baseTRPC } from 'utils/trpc';
+import { trpc } from 'utils/trpc';
 import { z } from 'zod';
 
 // validation schema is used by server
@@ -22,18 +22,15 @@ function useZodForm<TSchema extends z.ZodType>(
   return form;
 }
 
-const useTRPCContext = () => baseTRPC.useContext().reactHookForm;
-const trpc = baseTRPC.reactHookForm;
-
 export default function Page() {
-  const utils = useTRPCContext();
-  const query = trpc.list.useQuery(undefined, {
+  const utils = trpc.useContext().reactHookFormRouter;
+  const query = trpc.reactHookFormRouter.list.useQuery(undefined, {
     suspense: true,
   });
 
   const posts = query.data;
 
-  const mutation = trpc.add.useMutation({
+  const mutation = trpc.reactHookFormRouter.add.useMutation({
     onSuccess: async () => {
       await utils.list.invalidate();
     },

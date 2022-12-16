@@ -19,7 +19,7 @@ export const appRouter = t.router({
 
   source: sourceRouter,
   ssgRouter: ssgRouter,
-  auth: authRouter,
-  reactHookForm: reactHookFormRouter,
+  authRouter: authRouter,
+  reactHookFormRouter: reactHookFormRouter,
 });
 export type AppRouter = typeof appRouter;

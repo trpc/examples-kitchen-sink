@@ -3,10 +3,11 @@ import { ExampleProps } from 'utils/ExamplePage';
 export const meta: ExampleProps = {
   title: 'React Hook Form',
   href: '/react-hook-form',
+  clientOnly: true,
   summary: (
     <>
       <p>
-        Using tRPC &amp; <code>react-hook-form</code>
+        Using tRPC with <code>react-hook-form</code>.
       </p>
     </>
   ),
@@ -20,8 +21,13 @@ export const meta: ExampleProps = {
           rel="noreferrer"
           className="font-mono"
         >
-          react-hook-form
+          react-hook-form.
         </a>
+        <br />
+        Note how the same <a href="https://github.com/colinhacks/zod">
+          zod
+        </a>{' '}
+        validation schema is reused both for the client &amp; the server.
       </p>
     </>
   ),

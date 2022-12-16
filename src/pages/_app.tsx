@@ -2,7 +2,7 @@ import '../styles/globals.css';
 
 import { AppType } from 'next/dist/shared/lib/utils';
 import { useEffect, useState } from 'react';
-import { baseTRPC } from 'utils/trpc';
+import { trpc } from 'utils/trpc';
 
 function ContributorsWantedBanner() {
   const [visible, setVisible] = useState(false);
@@ -47,13 +47,13 @@ function ContributorsWantedBanner() {
   );
 }
 
-const MyApp: AppType = ({ Component, pageProps }) => {
+const MyApp: AppType = (props) => {
   return (
     <>
-      <Component {...pageProps} />
+      <props.Component {...props.pageProps} />
       <ContributorsWantedBanner />
     </>
   );
 };
 
-export default baseTRPC.withTRPC(MyApp);
+export default trpc.withTRPC(MyApp);

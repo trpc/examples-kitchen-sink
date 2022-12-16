@@ -43,9 +43,7 @@ export const trpc = createTRPCNext<AppRouter>({
       links: [
         // adds pretty logs to your console in development and logs errors in production
         loggerLink({
-          enabled: (opts) =>
-            process.env.NODE_ENV === 'development' ||
-            (opts.direction === 'down' && opts.result instanceof Error),
+          enabled: () => true,
         }),
         httpBatchLink({
           url: `${getBaseUrl()}/api/trpc`,
@@ -65,7 +63,7 @@ export const trpc = createTRPCNext<AppRouter>({
  */
 
 /**
- * You can use inferrence to get types for procedure input and output
+ * You can use inference to get types for procedure input and output
  * this is equivalent to inferQueryOutput/inferQueryInput/inferMutationOutput/inferMutationInput in v9
  * @example type SourceInput = inferProcedureInput<AppRouter['source']['getSource']>;
  * @example type SourceOutput = inferProcedureOutput<AppRouter['source']['getSource']>;

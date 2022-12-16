@@ -22,26 +22,30 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
 
-      - name: Install deps and build (with cache)
-        uses: bahmutov/npm-install@v1
+      - uses: pnpm/action-setup@v2.2.4
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        run: |
+          echo "pnpm_cache_dir=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
+          key: ${{ runner.os }}-pnpm-store-${{ matrix.dir }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-${{ matrix.dir }}-
+
+      - run: node -v
+      - name: Install deps (with cache)
+        run: pnpm install
 
       - name: Next.js cache
         uses: actions/cache@v2
         with:
           path: ${{ github.workspace }}/.next/cache
-          key: ${{ runner.os }}-${{ runner.node }}-${{ hashFiles('**/yarn.lock') }}-nextjs
+          key: ${{ runner.os }}-${{ runner.node }}-${{ hashFiles('**/pnpm.lock') }}-nextjs
 
-      - run: yarn playwright install-deps
-      - run: yarn lint
-      - run: yarn build
-      - run: yarn test-start
-      - run: yarn test-dev
-
-      - name: Upload videos
-        if: ${{ always() }}
-        uses: actions/upload-artifact@v2
-        with:
-          name: videos
-          path: |
-            playwright/screenshots
-            playwright/videos
+      - run: pnpm lint
+      - run: pnpm build

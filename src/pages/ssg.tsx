@@ -1,4 +1,4 @@
-import { createProxySSGHelpers } from '@trpc/react/ssg';
+import { createProxySSGHelpers } from '@trpc/react-query/ssg';
 import { meta } from 'feature/ssg/meta';
 import { InferGetStaticPropsType } from 'next';
 import { createContext } from 'server/trpc/context';

@@ -1,4 +1,4 @@
-import NextAuth, { NextAuthOptions } from 'next-auth';
+import NextAuth, { NextAuthOptions, User } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
 export const authOptions: NextAuthOptions = {
@@ -26,7 +26,11 @@ export const authOptions: NextAuthOptions = {
         // You can also use the `req` object to obtain additional parameters
         // (i.e., the request IP address)
 
-        const user = { id: 1, name: 'J Smith', email: credentials?.username };
+        const user: User = {
+          id: '1',
+          name: 'J Smith',
+          email: credentials?.username,
+        };
 
         return user;
       },

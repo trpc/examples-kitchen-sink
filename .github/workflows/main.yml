@@ -29,13 +29,13 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ${{ github.workspace }}/.next/cache
-          key: ${{ runner.os }}-${{ runner.node }}-${{ hashFiles('**/yarn.lock') }}-nextjs
+          key: ${{ runner.os }}-${{ runner.node }}-${{ hashFiles('**/pnpm.lock') }}-nextjs
 
-      - run: yarn playwright install-deps
-      - run: yarn lint
-      - run: yarn build
-      - run: yarn test-start
-      - run: yarn test-dev
+      - run: pnpm playwright install-deps
+      - run: pnpm lint
+      - run: pnpm build
+      - run: pnpm test-start
+      - run: pnpm test-dev
 
       - name: Upload videos
         if: ${{ always() }}

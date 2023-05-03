@@ -243,7 +243,7 @@ export function ExamplePage(
             </div>
           </div>
           <div id="content">
-            <div className="flex justify-between sticky top-0 bg-primary-100 bg-opacity-50 overflow-x-auto">
+            <div className="flex justify-between sticky top-0 bg-primary-100 bg-opacity-50 overflow-x-auto" style={{zIndex:99}}>
               <div></div>
               <div className="btn-group top-0">
                 <Link

@@ -4,13 +4,15 @@ import Image from 'next/image';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 
 export function Navbar() {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
 
-  const content = session ? (
-    <ProfileAvatar session={session} />
-  ) : (
-    <SignInButton />
-  );
+  let content;
+  // Just render nothing if loading for now
+  if (status === 'loading') {
+    content = null;
+  } else {
+    content = session ? <ProfileAvatar session={session} /> : <SignInButton />;
+  }
 
   return (
     <div className="bg-primary-600 h-[60px]">

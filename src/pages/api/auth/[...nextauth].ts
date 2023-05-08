@@ -1,5 +1,6 @@
 import NextAuth, { NextAuthOptions, User } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import GithubProvider from 'next-auth/providers/github';
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -34,6 +35,11 @@ export const authOptions: NextAuthOptions = {
 
         return user;
       },
+    }),
+    GithubProvider({
+      // @TODO: Use zod to validate en variables
+      clientId: process.env.GITHUB_CLIENT_ID as string,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,

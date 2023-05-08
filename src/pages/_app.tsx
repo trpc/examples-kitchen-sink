@@ -3,6 +3,9 @@ import '../styles/globals.css';
 import { AppType } from 'next/dist/shared/lib/utils';
 import { useEffect, useState } from 'react';
 import { trpc } from 'utils/trpc';
+import { SessionProvider } from 'next-auth/react';
+import { Session } from 'next-auth';
+import { Navbar } from 'components';
 
 function ContributorsWantedBanner() {
   const [visible, setVisible] = useState(false);
@@ -47,12 +50,16 @@ function ContributorsWantedBanner() {
   );
 }
 
-const MyApp: AppType = (props) => {
+const MyApp: AppType<{ session: Session | null }> = ({
+  Component,
+  pageProps: { session, ...pageProps },
+}) => {
   return (
-    <>
-      <props.Component {...props.pageProps} />
+    <SessionProvider session={session}>
+      <Navbar />
+      <Component {...pageProps} />
       <ContributorsWantedBanner />
-    </>
+    </SessionProvider>
   );
 };
 

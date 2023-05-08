@@ -16,7 +16,6 @@ import { sourceRouter } from './source';
  */
 export const appRouter = t.router({
   healthcheck: t.procedure.query(() => 'ok'),
-
   source: sourceRouter,
   ssgRouter: ssgRouter,
   authRouter: authRouter,

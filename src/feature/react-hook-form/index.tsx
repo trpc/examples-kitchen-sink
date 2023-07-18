@@ -9,13 +9,8 @@ export const validationSchema = z.object({
   text: z.string().min(5),
 });
 
-export default function Page() {
+function AddPostForm() {
   const utils = trpc.useContext().reactHookFormRouter;
-  const query = trpc.reactHookFormRouter.list.useQuery(undefined, {
-    suspense: true,
-  });
-
-  const posts = query.data;
 
   const mutation = trpc.reactHookFormRouter.add.useMutation({
     onSuccess: async () => {
@@ -33,22 +28,6 @@ export default function Page() {
 
   return (
     <>
-      <h2 className="text-3xl font-bold">Posts</h2>
-
-      <div className="flex flex-col gap-2 py-2">
-        {posts &&
-          posts.map((post) => (
-            <article
-              key={post.id}
-              className="bg-white shadow overflow-hidden sm:rounded-lg p-4"
-            >
-              <h3 className="text-xl font-bold">{post.title}</h3>
-              <p className="my-2">{post.text}</p>
-            </article>
-          ))}
-      </div>
-
-      <h2 className="text-2xl font-bold">Add a post</h2>
       <Form
         form={form}
         handleSubmit={async (values) => {
@@ -83,13 +62,38 @@ export default function Page() {
           )}
         </div>
       </Form>
-
       <SubmitButton
         form={form}
         className="border bg-primary-500 text-white p-2 font-bold"
       >
         Add post
       </SubmitButton>
+    </>
+  );
+}
+export default function Page() {
+  const [posts] = trpc.reactHookFormRouter.list.useSuspenseQuery();
+
+  return (
+    <>
+      <h2 className="text-3xl font-bold">Posts</h2>
+
+      <div className="flex flex-col gap-2 py-2">
+        {posts &&
+          posts.map((post) => (
+            <article
+              key={post.id}
+              className="bg-white shadow overflow-hidden sm:rounded-lg p-4"
+            >
+              <h3 className="text-xl font-bold">{post.title}</h3>
+              <p className="my-2">{post.text}</p>
+            </article>
+          ))}
+      </div>
+
+      <h2 className="text-2xl font-bold">Add a post</h2>
+
+      <AddPostForm />
     </>
   );
 }

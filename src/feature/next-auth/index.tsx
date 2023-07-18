@@ -13,11 +13,7 @@ export default function NextAuth() {
 }
 
 function ServerSideSessionCheck() {
-  const query = trpc.authRouter.getSession.useQuery(undefined, {
-    suspense: true,
-  });
-
-  const session = query.data;
+  const [session] = trpc.authRouter.getSession.useSuspenseQuery();
 
   return (
     <div className="my-1">
@@ -63,11 +59,7 @@ function MiddlewareQuery() {
 }
 
 function SignInButton() {
-  const query = trpc.authRouter.getSession.useQuery(undefined, {
-    suspense: true,
-  });
-
-  const session = query.data;
+  const [session] = trpc.authRouter.getSession.useSuspenseQuery();
 
   return (
     <div className="flex items-center">

@@ -1,4 +1,4 @@
-import { createProxySSGHelpers } from '@trpc/react-query/ssg';
+import { createServerSideHelpers } from '@trpc/react-query/server';
 import { meta } from 'feature/ssg/meta';
 import { InferGetStaticPropsType } from 'next';
 import { createContext } from 'server/trpc/context';
@@ -28,7 +28,7 @@ export default function Page(
 }
 
 export async function getStaticProps() {
-  const ssgHelper = createProxySSGHelpers({
+  const ssgHelper = createServerSideHelpers({
     router: appRouter,
     ctx: await createContext(),
     transformer: superjson, // optional - adds superjson serialization

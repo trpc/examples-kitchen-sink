@@ -1,34 +1,16 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm, UseFormProps } from 'react-hook-form';
 import { trpc } from 'utils/trpc';
 import { z } from 'zod';
 
-// validation schema is used by server
+import { Form, SubmitButton, useZodForm } from './Form';
+
+// validation schema is used by tRPC mutation and client
 export const validationSchema = z.object({
   title: z.string().min(2),
   text: z.string().min(5),
 });
 
-function useZodForm<TSchema extends z.ZodType>(
-  props: Omit<UseFormProps<TSchema['_input']>, 'resolver'> & {
-    schema: TSchema;
-  },
-) {
-  const form = useForm<TSchema['_input']>({
-    ...props,
-    resolver: zodResolver(props.schema, undefined),
-  });
-
-  return form;
-}
-
-export default function Page() {
+function AddPostForm() {
   const utils = trpc.useContext().reactHookFormRouter;
-  const query = trpc.reactHookFormRouter.list.useQuery(undefined, {
-    suspense: true,
-  });
-
-  const posts = query.data;
 
   const mutation = trpc.reactHookFormRouter.add.useMutation({
     onSuccess: async () => {
@@ -36,13 +18,61 @@ export default function Page() {
     },
   });
 
-  const methods = useZodForm({
+  const form = useZodForm({
     schema: validationSchema,
     defaultValues: {
       title: '',
       text: '',
     },
   });
+
+  return (
+    <>
+      <Form
+        form={form}
+        handleSubmit={async (values) => {
+          await mutation.mutateAsync(values);
+          form.reset();
+        }}
+        className="space-y-2"
+      >
+        <div>
+          <label>
+            Title
+            <br />
+            <input {...form.register('title')} className="border" />
+          </label>
+
+          {form.formState.errors.title?.message && (
+            <p className="text-red-700">
+              {form.formState.errors.title?.message}
+            </p>
+          )}
+        </div>
+        <div>
+          <label>
+            Text
+            <br />
+            <textarea {...form.register('text')} className="border" />
+          </label>
+          {form.formState.errors.text?.message && (
+            <p className="text-red-700">
+              {form.formState.errors.text?.message}
+            </p>
+          )}
+        </div>
+      </Form>
+      <SubmitButton
+        form={form} // If you place the submit button outside of the form, you need to specify the form to submit
+        className="border bg-primary-500 text-white p-2 font-bold"
+      >
+        Add post
+      </SubmitButton>
+    </>
+  );
+}
+export default function Page() {
+  const [posts] = trpc.reactHookFormRouter.list.useSuspenseQuery();
 
   return (
     <>
@@ -62,47 +92,8 @@ export default function Page() {
       </div>
 
       <h2 className="text-2xl font-bold">Add a post</h2>
-      <form
-        onSubmit={methods.handleSubmit(async (values) => {
-          await mutation.mutateAsync(values);
-          methods.reset();
-        })}
-        className="space-y-2"
-      >
-        <div>
-          <label>
-            Title
-            <br />
-            <input {...methods.register('title')} className="border" />
-          </label>
 
-          {methods.formState.errors.title?.message && (
-            <p className="text-red-700">
-              {methods.formState.errors.title?.message}
-            </p>
-          )}
-        </div>
-        <div>
-          <label>
-            Text
-            <br />
-            <textarea {...methods.register('text')} className="border" />
-          </label>
-          {methods.formState.errors.text?.message && (
-            <p className="text-red-700">
-              {methods.formState.errors.text?.message}
-            </p>
-          )}
-        </div>
-
-        <button
-          type="submit"
-          disabled={mutation.isLoading}
-          className="border bg-primary-500 text-white p-2 font-bold"
-        >
-          {mutation.isLoading ? 'Loading' : 'Submit'}
-        </button>
-      </form>
+      <AddPostForm />
     </>
   );
 }

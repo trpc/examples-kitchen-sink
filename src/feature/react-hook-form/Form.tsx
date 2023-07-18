@@ -71,6 +71,9 @@ export function Form<TInput extends FieldValues>(
 
 export function SubmitButton(
   props: Omit<React.ComponentProps<'button'>, 'type' | 'form'> & {
+    /**
+     * Optionally specify a form to submit instead of the closest form context.
+     */
     form?: AnyZodForm;
   },
 ) {

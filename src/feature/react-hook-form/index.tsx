@@ -63,7 +63,7 @@ function AddPostForm() {
         </div>
       </Form>
       <SubmitButton
-        form={form}
+        form={form} // If you place the submit button outside of the form, you need to specify the form to submit
         className="border bg-primary-500 text-white p-2 font-bold"
       >
         Add post

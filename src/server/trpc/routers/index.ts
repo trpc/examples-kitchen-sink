@@ -1,6 +1,7 @@
 /**
  * This file contains the root router of your tRPC-backend
  */
+import { infiniteQueryRouter } from 'feature/infinite-query/router';
 import { authRouter } from 'feature/next-auth/router';
 import { reactHookFormRouter } from 'feature/react-hook-form/router';
 import ssgRouter from 'feature/ssg/router';
@@ -21,5 +22,6 @@ export const appRouter = t.router({
   ssgRouter: ssgRouter,
   authRouter: authRouter,
   reactHookFormRouter: reactHookFormRouter,
+  infiniteQueryRouter: infiniteQueryRouter,
 });
 export type AppRouter = typeof appRouter;

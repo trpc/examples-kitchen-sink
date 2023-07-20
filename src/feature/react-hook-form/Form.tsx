@@ -50,9 +50,6 @@ export function Form<TInput extends FieldValues>(
         {...passThrough}
         id={form.id}
         onSubmit={(event) => {
-          event.stopPropagation();
-          event.preventDefault();
-
           form.handleSubmit(async (values) => {
             try {
               await handleSubmit(values);
@@ -64,7 +61,7 @@ export function Form<TInput extends FieldValues>(
             }
           })(event);
         }}
-      ></form>
+      />
     </FormProvider>
   );
 }
